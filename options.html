@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: -apple-system, sans-serif;
+        padding: 20px;
+        background: #1c1c1e;
+        color: #f2f2f7;
+      }
+      input {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+      }
+      button {
+        padding: 10px 16px;
+        background-color: #007aff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Set OpenAI API Key</h2>
+    <input type="password" id="apiKeyInput" placeholder="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" />
+    <button id="saveBtn">Save Key</button>
+
+    <script>
+      const input = document.getElementById("apiKeyInput");
+      const saveBtn = document.getElementById("saveBtn");
+
+      // Load existing key (if any)
+      chrome.storage.local.get("openaiKey", ({ openaiKey }) => {
+        if (openaiKey) input.value = openaiKey;
+      });
+
+      saveBtn.addEventListener("click", () => {
+        chrome.storage.local.set({ openaiKey: input.value }, () => {
+          alert("✅ API Key saved!");
+        });
+      });
+    </script>
+  </body>
+</html>
